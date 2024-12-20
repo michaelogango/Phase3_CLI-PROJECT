@@ -61,7 +61,7 @@ def main():
 
 
             team = int(input("What team(id): "))
-            title = input("Arital Title: ")
+            title = input("Artical Title: ")
             content = input("Content: ")
             author_name = input("Author name: ")
             artical = News(None,title,content,author_name,team)
