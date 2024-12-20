@@ -1,4 +1,5 @@
 import sqlite3
+import re
 
 CONN=sqlite3.connect("models/database/database.db")
 CURSOR = CONN.cursor()
@@ -16,12 +17,25 @@ class Match():
         self.stadium=stadium
 
      def add_match(self):
-        CURSOR.execute("""
-        INSERT INTO match (date, time, home_team_id, away_team_id, stadium)
-        VALUES (?, ?, ?, ?, ?)
-    """, (self.date, self.time, self.home_team_id, self.away_team_id, self.stadium))
-        CONN.commit()
-        print("Match added successfully.")
+
+        if not re.match(r'^\d{2}-\d{2}-\d{4}$', self.date):
+            print("Invalid date format. Please use dd-mm-yyyy.")
+            return
+    
+        # Validate time format
+        if not re.match(r'^\d{2}:\d{2}$', self.time):
+            print("Invalid time format. Please use HH:MM.")
+            return
+        try:
+        # If validations pass, insert into the database
+            CURSOR.execute("""
+            INSERT INTO match (date, time, home_team_id, away_team_id, stadium)
+            VALUES (?, ?, ?, ?, ?)
+        """, (self.date, self.time, self.home_team_id, self.away_team_id, self.stadium))
+            CONN.commit()
+            print("Match added successfully.")
+        except Exception as e:
+            print("An error occurred:", e)
 
      def update_match_score(id, home_team_score, away_team_score):
         CURSOR.execute("""
