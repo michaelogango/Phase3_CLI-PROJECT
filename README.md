@@ -139,6 +139,7 @@ Here is an example news article you can create:
 ## Additional Notes
 1. Ensure that all IDs entered correspond to existing database records.
 2. The database is persistent; any data you add will remain even after the application is closed and reopened.
+3. If you need the ID's for the different teams the application will show you the IDs and the corrisponding name
 
 ---
 
